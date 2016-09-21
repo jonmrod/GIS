@@ -16,3 +16,17 @@ Before you run the app the first time, make sure all packets are installed.
 
 ```npm install```
 ```bower instal```
+
+
+## Ready to Run
+Open two terminals windows:
+
+On first window, start the php local server:
+```cd GIS/GIS/php```
+```php -S localhost:8000```
+
+On second window, start the ionic server:
+```cd GIS```
+```ionic serve```
+
+App should be opening on your browser, and should be able to analyze image that is submitted
