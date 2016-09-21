@@ -1,3 +1,6 @@
 # Geographical Information System 
 
-Description TBD
+## Setting Up
+Make sure you have *ionic, git, php, bower and npm* installed on your machine before anything
+
+
