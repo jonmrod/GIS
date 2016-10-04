@@ -3,14 +3,14 @@
     <form enctype="multipart/form-data">
       <ion-list>
       <ion-item>
-        <input id="newFile" type="file" ngf-select="onFileSelect($files)">
+        <input id="file-input" type="file" ngf-select="onFileSelect($files)">
       </ion-item>
       <button ng-disabled="!picFile.name" class="button" ng-click="submitGeo()">
         Check Geo Data
       </button>
       </ion-list>
       <div ng-show="error">{{error}}</div>
-      <img class="thumb" ng-show="picFile" ngf-src="picFile">
+      <img class="thumb" ng-show="picFile" ng-src="{{ImageSrc}}">
       <div ng-show="picFile" id="map" data-tap-disabled="true"></div>
     </form>
   </ion-content>
