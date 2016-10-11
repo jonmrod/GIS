@@ -3,15 +3,20 @@
     <form enctype="multipart/form-data">
       <ion-list>
       <ion-item>
-        <input id="file-input" type="file" ngf-select="onFileSelect($files)">
+        <label>file 1: </label>
+        <input id="file-input" type="file" ngf-select="selectFirstFile($files)">
       </ion-item>
-      <button ng-disabled="!picFile.name" class="button" ng-click="submitGeo()">
+      <ion-item>
+        <label>file 2: </label>
+        <input id="file-input" type="file" ngf-select="selectSecondFile($files)">
+      </ion-item>
+      <button ng-disabled="!pic1.name || !pic2.name" class="button" ng-click="submitGeo()">
         Check Geo Data
       </button>
       </ion-list>
-      <div ng-show="error">{{error}}</div>
-      <img class="thumb" ng-show="picFile" ng-src="{{ImageSrc}}">
-      <div ng-show="picFile" id="map" data-tap-disabled="true"></div>
+      <div ng-show="distance">{{pic1.name}} is {{distance}} miles away from {{pic2.name}}</div>
+      <!-- <img class="thumb" ng-show="pic1" ng-src="{{ImageSrc}}"> -->
+      <div ng-show="pic1" id="map" data-tap-disabled="true"></div>
     </form>
   </ion-content>
 <!--   <ion-content class="padding">
