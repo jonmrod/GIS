@@ -3,15 +3,23 @@
   header("Access-Control-Allow-Credentials", "true");
   header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
   header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-  $file_name = $_FILES['file']['tmp_name'];
-  //read exif data
-  $exif = exif_read_data($file_name, 0, true);  // set gps data
-  $gps = $exif["GPS"];
-  $lon = getGps($gps["GPSLongitude"], $gps['GPSLongitudeRef']);
-  $lat = getGps($gps["GPSLatitude"], $gps['GPSLatitudeRef']);
-  $coords = array('lon' => "$lon", 'lat' => "$lat");
-  // send lat and lng object
-  echo json_encode($coords);
+  if (!empty($_FILES)) {
+    $file_name = $_FILES['file']['tmp_name'];
+    $image = basename($_FILES['file']['name']);
+    //read exif data
+    $exif = exif_read_data($file_name, 0, true);  // set gps data
+    $gps = $exif["GPS"];
+    $file = $exif["FILE"];
+    $lon = getGps($gps["GPSLongitude"], $gps['GPSLongitudeRef']);
+    $lat = getGps($gps["GPSLatitude"], $gps['GPSLatitudeRef']);
+    $coords = array('lon' => "$lon", 'lat' => "$lat", 'filename' => "$file_name");
+    // send lat and lng object
+    header("Content-type: image/jpeg");
+    echo json_encode($exif);
+  }
+  else {
+    echo 'no files selected';
+  }
 
   function getGps($exifCoord, $hemi) {
     $degrees = count($exifCoord) > 0 ? gps2Num($exifCoord[0]) : 0;

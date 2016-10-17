@@ -1,15 +1,16 @@
 angular.module('app.services', [])
 
-.service('GeoData', function($http) {
+.service('GeoData', function($q, Upload, $http) {
 
   var self = this;
 
-  self.testGeoData = function(img) {
-    return $http.post('http://localhost:8000/retrieveGeo.php', {
-      pathToImg: img
+  self.getGeoData = function(img) {
+    return function() {
+    EXIF.getData(img, function() {
+      return $q.resolve(EXIF.pretty(this));
     });
   }
-
+}
 })
 
 .factory('Chats', function() {
