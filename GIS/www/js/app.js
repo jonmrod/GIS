@@ -1,5 +1,5 @@
 
-angular.module('starter', ['ngFileUpload', 'ionic', 'app.controllers', 'app.services'])
+angular.module('starter', ['ngMap', 'ngCordova', 'ngFileUpload', 'ionic', 'app.controllers', 'app.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
