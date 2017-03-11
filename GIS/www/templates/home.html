@@ -1,0 +1,44 @@
+<ion-view title="Kean Tour">
+  <ion-content scroll="false">
+    <map center="40.6781,-74.2343" zoom="18">
+      <!-- ngRepeat: pos in positions -->
+      <marker position="{{position.lat}},{{position.lng}}" icon="../img/pointer.png"></marker>
+<shape id="{{id}}" ng-repeat="shape in data.buildings"
+      on-click="showDetail(shape)" 
+       name="{{shape.location.type}}"
+       stroke-color="black"
+       stroke-opacity="0.8"
+       path="{{shape.location.coordinates}}"
+       paths="{{shape.location.coordinates}}"
+       stroke-weight="2"></shape>
+        <info-window id="foo-iw">
+        <div ng-non-bindable="">
+          id: {{info.title}}<br/>
+        </div>
+      </info-window>
+    </map>
+    <ion-scroll direction="y" scrollbar-x="false" scrollbar-y="false">
+      <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
+      <div class="list" ng-repeat="item in data.buildings.events" item-width="100%">
+        <div class="card">
+          <div ng-class="setSentimentColor(item.sentimentScore)" class="item item-avatar">
+            <div ui-sref="app.tabs.feedbackDetails({feedbackId: item._id})" nav-direction="forward">
+              <h4 class="card-title">{{item.title}}</h4>
+              <div class="right">
+                <h3 class="text-center">{{item.time}}</h3>
+                <p class="status-active">not active</p>
+                <i class="icon ion-ios-star icon-status-follow" ng-show="item.isFollowing"></i>
+                <i class="icon ion-thumbsup icon-status-vote" ng-show="item.isUpvoting"></i>
+              </div>
+              <br>
+              <i class="icon-left ion-clock fb-card-icon-padding-r"></i>{{item.time}}
+              </p>
+              <!--  <p>{{item.numberOfComments | Pluralize: 'comments' }}</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-scroll>
+  </ion-content>
+</ion-view>
+

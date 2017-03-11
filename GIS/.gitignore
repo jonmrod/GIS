@@ -4,8 +4,3 @@
 node_modules/
 platforms/
 plugins/
-lib/
-*.DS_Store
-.io-config.json
-.DS_Store
-ionic.project
