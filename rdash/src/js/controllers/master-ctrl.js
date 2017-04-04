@@ -36,16 +36,4 @@ function MasterCtrl($scope, $cookieStore) {
     window.onresize = function() {
         $scope.$apply();
     };
-
-    $scope.submitEvent = function() {
-      console.log('test');
-      GIS.newEvent(
-        $scope.data.title,
-        $scope.data.content,
-        $scope.data.startTime,
-        $scope.data.endTime,
-        $scope.data.date,
-        $scope.data.floor
-        ).then(submitSuccess, submitFailed)
-    }
 }
