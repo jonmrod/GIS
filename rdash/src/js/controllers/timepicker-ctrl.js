@@ -1,4 +1,13 @@
-angular.module('RDash').controller('Timepicker', function ($scope, $log) {
+/**
+ * Time picker Controller
+ */
+
+angular
+    .module('RDash')
+    .controller('TimepickerCtrl', ['$scope', TimepickerCtrl]);
+
+    function TimepickerCtrl($scope, $log) {
+
     $scope.mytime = new Date();
 
     $scope.hstep = 1;
@@ -28,4 +37,4 @@ angular.module('RDash').controller('Timepicker', function ($scope, $log) {
     $scope.clear = function() {
         $scope.mytime = null;
     };
-});
+}

@@ -1,9 +1,13 @@
 /**
  * Datepicker Controller
- * Jacob Quick March 8, 2017
  */
 
-angular.module('RDash').controller('Datepicker', function($scope) {
+angular
+    .module('RDash')
+    .controller('DatepickerCtrl', ['$scope', DatepickerCtrl]);
+
+    function DatepickerCtrl($scope) {
+
     $scope.today = function() {
         $scope.dt = new Date();
     };
@@ -49,4 +53,4 @@ angular.module('RDash').controller('Datepicker', function($scope) {
 
         return '';
     }
-});
+}

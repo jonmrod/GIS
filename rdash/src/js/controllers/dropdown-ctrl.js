@@ -1,6 +1,12 @@
-angular.module('RDash').controller('DropDown', ['$scope', DropDown]);
+/**
+ * Drop down Controller
+ */
 
-    function DropDown($scope) {
+angular
+    .module('RDash')
+    .controller('DropDownCtrl', ['$scope', DropDownCtrl]);
+
+    function DropDownCtrl($scope) {
 
     $scope.building = {
         options: [

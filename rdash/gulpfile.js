@@ -92,7 +92,7 @@ gulp.task('webserver', function() {
         root: 'dist',
         livereload: true,
         host: 'yoda.kean.edu',
-        port: 8000,
+        port: 8001,
         path: '/~2017S01/app'
     });
 });
