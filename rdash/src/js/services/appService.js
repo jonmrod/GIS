@@ -2,7 +2,7 @@ angular.module('RDash')
   .service('AppService', ['$http', AppService]);
 
   function AppService($http) {
-    var API = "http://localhost:8000/";
+    var API = "http://yoda.kean.edu:8000/";
     var self = this;
 
     self.getBuildings = function () {

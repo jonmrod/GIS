@@ -8,7 +8,7 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 var cors = require('cors');
 
 // Configuration
-var conn = mongoose.createConnection('mongodb://4961:4961@69.114.186.143:27017/buildings');
+var conn = mongoose.createConnection('mongodb://4961:4961@ds133271.mlab.com:33271/buildings');
 
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.urlencoded({ 'extended': 'true' })); // parse application/x-www-form-urlencoded
@@ -32,11 +32,12 @@ var Building = conn.model('building', {
   events: [{
     title: String,
     content: String,
-    floor: String,
+    start: String,
+    end: String,
     date: String,
-    timeStart: String,
-    timeEnd: String,
-    img: String
+    floor: String,
+    room: String,
+    building: String
   }]
 });
 
@@ -52,6 +53,43 @@ app.get('/buildings', function(req, res) {
       }
     });
   })
+//get events
+app.get('/buildings/events', function(req, res) {
+    Building.find({}, 'events', function(err, building) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(building);
+      }
+    });
+  })
+//remove event
+app.post('/buildings/removeEvent', function(req, res) {
+  Building.update({
+    title: req.body.building
+  }, {
+    $pull: {
+      events: {
+        _id: req.body.eventId
+      }
+    }
+  }, function(err, brunch) {
+    if (err)
+      res.send(err);
+
+    res.json({ message: 'Event successfully removed!' });
+  });
+})
+//get all buildings
+app.get('/buildings', function(req, res) {
+    Building.find({}, 'title floors content location events', function(err, building) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(building);
+      }
+    });
+})
 //get floors
 app.get('/buildings/info', function(req, res) {
     Building.find({}, 'title floors', function(err, building) {
@@ -62,6 +100,30 @@ app.get('/buildings/info', function(req, res) {
       }
     });
   })
+
+app.post('/buildings/newEvent', function(req, res) {
+  Building.update({
+    title: req.body.building
+  }, {
+    $push: {
+      events: {
+        title: req.body.title,
+        content: req.body.content,
+        start: req.body.start,
+        end: req.body.end,
+        date: req.body.date,
+        floor: req.body.floor,
+        room: req.body.room,
+        building: req.body.building
+      }
+    }
+  }, function(err, brunch) {
+    if (err)
+      res.send(err);
+
+    res.json({ message: 'Event successfully submitted!' });
+  });
+})
 
 //new brunch
 app.post('/api/brunches', function(req, res) {
@@ -136,7 +198,7 @@ app.post('/api/event/new', function(req, res) {
 
 // listen (start app with node server.js) ======================================
 app.listen(8000);
-console.log("App listening on port 8080");
+console.log("App listening on port 8000");
 
 /*
 db.createUser( { user: "4961",
@@ -175,12 +237,13 @@ db.buildings.insert({
 [40.676771,-74.228606]]
 },
   events: [{
-    title: "",
-    content: "",
-    start: "",
-    end: "",
-    date: "",
-    floor: ""
+    title: "Database Info Session",
+    content: "Learn about our database course happening next spring!",
+    start: "1:00PM",
+    end: "2:15PM",
+    date: "5/10/2017",
+    floor: "2",
+    room: "208"
   }]
 })
 
