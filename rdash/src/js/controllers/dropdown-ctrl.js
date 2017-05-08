@@ -4,32 +4,29 @@
 
 angular
     .module('RDash')
-    .controller('DropDownCtrl', ['$scope', DropDownCtrl]);
+    .controller('DropDownCtrl', ['$scope', 'AppService', DropDownCtrl]);
 
-    function DropDownCtrl($scope) {
+    function DropDownCtrl($scope, AppService) {
 
-    $scope.building = {
-        options: [
-            'NAAB',
-            'GLAB',
-            'STEM'
-        ],
-        selected: 'NAAB'
-    };
+    getBuildingInfo();
+    $scope.building = [];
 
-    $scope.floor = {
-        options: [
-            'Building wide event',
-            'Floor 1',
-            'Floor 2',
-            'Floor 3',
-            'Floor 4',
-            'Floor 5',
-            'Floor 6'
-        ],
-        selected: 'Building wide event'
-    };
+    function getBuildingInfo() {
+      AppService.getBuildingInfo().then(InfoSuccess, InfoFailed);
+    }
 
+    function InfoSuccess(res) {
+      var floor = parseInt(res.data[0].floors);
+      $scope.building.push(res.data[0].title);
+      var floors = [];
+      for (var i = 1; i <= floor; i++) {
+         floors.push(i);
+      }
+      $scope.floors = floors;
+    }
+    function InfoFailed(res) {
+      console.log(res.data);
+    }
     $scope.room = {
         options: [
             'Floor wide event',
