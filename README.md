@@ -33,7 +33,7 @@ On second window, start the ionic server (app):
 <br>
 <i>We're using PM2 to keep the gulp/node server process alive 24/7</i>
 
-while being admin
+While being admin
 ```su```
 
 To see current processes:
