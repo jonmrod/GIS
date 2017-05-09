@@ -44,7 +44,10 @@ To add/delete process:
 ```pm2 delete [FILENAME]```
 
 ## Testing/installing ionic App
+Xcode project is located at: ```GIS/platforms/ios```
+<br>
 Follow the guide - [How to test/install app](http://ionicframework.com/docs/v1/guide/testing.html)
+<br>
 **Must have a Apple computer to install iOS app**
 
 ## MongoDB
