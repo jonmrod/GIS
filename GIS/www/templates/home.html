@@ -19,21 +19,19 @@
     </map>
     <ion-scroll direction="y" scrollbar-x="false" scrollbar-y="false">
       <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()" spinner="spiral"></ion-refresher>
-      <div class="list" ng-repeat="item in data.buildings.events" item-width="100%">
+      <div class="list" ng-repeat="item in data.events | orderBy: '+date'" item-width="100%">
         <div class="card">
           <div ng-class="setSentimentColor(item.sentimentScore)" class="item item-avatar">
             <div ui-sref="app.tabs.feedbackDetails({feedbackId: item._id})" nav-direction="forward">
               <h4 class="card-title">{{item.title}}</h4>
               <div class="right">
-                <h3 class="text-center">{{item.time}}</h3>
-                <p class="status-active">not active</p>
-                <i class="icon ion-ios-star icon-status-follow" ng-show="item.isFollowing"></i>
-                <i class="icon ion-thumbsup icon-status-vote" ng-show="item.isUpvoting"></i>
+                <!-- <h3 class="text-center">{{item.time}}</h3> -->
+                <p class="status-active">Room {{item.room}}, Floor {{item.floor}}</p>
+                <p>{{item.content}}</p>
               </div>
               <br>
-              <i class="icon-left ion-clock fb-card-icon-padding-r"></i>{{item.time}}
+              <i class="icon-left ion-clock fb-card-icon-padding-r"></i>{{item.start | date:'shortTime'}} - {{item.end | date:'shortTime'}} ({{item.date | date:'shortDate'}})
               </p>
-              <!--  <p>{{item.numberOfComments | Pluralize: 'comments' }}</p> -->
             </div>
           </div>
         </div>

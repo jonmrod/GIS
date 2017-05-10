@@ -42,12 +42,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function($scope, $interval, $ionicLoading, $cordovaGeolocation, AppService) {
-  $scope.data = {
-     prop : {
-      title: 'Intro to Programming Info Session',
-      time: '3:45pm'
-     }
-  };
+  $scope.data = [];
 
   $scope.position = {};
   $interval(function(){
@@ -56,14 +51,17 @@ angular.module('starter.controllers', [])
   }, 10);
   // $interval($scope.doRefresh, 10);
   getBuildings();
+  // $scope.doRefresh();
 
   $scope.doRefresh = function () {
     //delete objects not in area
     for (var index in $scope.data.buildings) {
       if(!inside([$scope.position.lat, $scope.position.lng],$scope.data.buildings[index].location.coordinates)) {
         // delete $scope.data.buildings[index];
+        console.log($scope.data.buildings[index].events);
+        $scope.data.events = $scope.data.buildings[index].events;
       }
-      console.log($scope.data.buildings[index].location.coordinates);
+      
     }
     $scope.$broadcast('scroll.refreshComplete');
   }
@@ -97,7 +95,7 @@ angular.module('starter.controllers', [])
     var posOptions = {enableHighAccuracy: true};
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
       $scope.location = position.coords;
-      $scope.position = {lat: position.coords.latitude,lng: position.coords.longitude};
+      $scope.position = {lat: position.coords.latitude, lng: position.coords.longitude};
       $scope.map.setCenter($scope.position);
     });
   }
